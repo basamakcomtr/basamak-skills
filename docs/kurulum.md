@@ -45,4 +45,6 @@ Değişiklikler için önce [sürüm geçmişini](../CHANGELOG.md) okuyun.
 
 Yalnızca kendi kurulumunuzun oluşturduğu ve Basamak Skills deposuna işaret ettiği doğrulanan sembolik bağlantıları kaldırın; diğer becerilere dokunmayın. Ardından isterseniz depo klonunu silebilirsiniz.
 
-Betik kimlik bilgisi istemez, gerçek sistemde değişiklik yapmaz. Ana `SKILL.md` talimatları İngilizce, aynı klasördeki `SKILL.tr.md` dosyaları özgün Türkçe talimatlardır. Türkçe referans gerekiyorsa `SKILL.tr.md` dosyasını doğrudan okutabilirsiniz.
+Betik kimlik bilgisi istemez, gerçek sistemde değişiklik yapmaz. Ana `SKILL.md` talimatları İngilizce, aynı klasördeki `SKILL.tr.md` dosyaları Türkçe karşılıklardır. İlk beş beceride özgün Türkçe talimatlar korunmuştur; yeni beceriler iki dilde hazırlanmıştır. Türkçe referans gerekiyorsa `SKILL.tr.md` dosyasını doğrudan okutabilirsiniz.
+
+Kurulum betiği mevcut 13 becerinin tamamını bağlar. Diğer ajan ortamları farklı dosya konumları kullanabilir; bu ortamlar henüz uçtan uca doğrulanmamıştır.

@@ -1,4 +1,4 @@
-"""Public Basamak Skills packaging smoke checks."""
+"""Public Basamak Skills packaging and installation smoke checks (not AI behavior tests)."""
 from pathlib import Path
 import os
 import subprocess
@@ -7,8 +7,15 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / ".agents" / "skills"
-NAMES = {"web-audit", "technical-troubleshooter", "support-assistant", "code-reviewer", "software-planner"}
+NAMES = {
+    "web-audit", "technical-troubleshooter", "support-assistant",
+    "code-reviewer", "software-planner", "conversion-optimizer",
+    "saas-positioning", "pricing-review", "automation-discovery",
+    "workflow-architect", "ai-feasibility", "release-readiness",
+    "subscription-lifecycle",
+}
 INSTALL = ROOT / "scripts" / "install.sh"
+VERSION = "1.2.0"
 
 
 class Tests(unittest.TestCase):
@@ -21,14 +28,26 @@ class Tests(unittest.TestCase):
             self.assertIn("description: >-\n", text.split("---\n", 2)[1])
 
     def test_docs(self):
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "1.1.0")
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), VERSION)
         self.assertIn("MIT License", (ROOT / "LICENSE").read_text())
-        for path in ("README.md", "README.tr.md", "docs/installation.md",
-                     "docs/kurulum.md", "CHANGELOG.md", "workflows/feature-request-to-review.md",
-                     "workflows/feature-request-to-review.tr.md"):
+        for path in (
+            "README.md", "README.tr.md", "docs/installation.md", "docs/kurulum.md",
+            "CHANGELOG.md", "workflows/feature-request-to-review.md",
+            "workflows/feature-request-to-review.tr.md",
+            "workflows/automation-opportunity-to-design.md",
+            "workflows/automation-opportunity-to-design.tr.md"
+        ):
             self.assertTrue((ROOT / path).is_file(), path)
-        self.assertNotIn("basamak-ai-skills/.agents",
-                         (ROOT / "workflows/feature-request-to-review.md").read_text())
+        self.assertNotIn(
+            "basamak-ai-skills/.agents",
+            (ROOT / "workflows/feature-request-to-review.md").read_text(),
+        )
+        for path in ("README.md", "README.tr.md"):
+            text = (ROOT / path).read_text(encoding="utf-8")
+            self.assertIn(VERSION, text)
+            self.assertIn("13", text)
+            for name in NAMES:
+                self.assertIn(name, text)
 
     def test_bilingual_skill_pairs(self):
         for name in NAMES:
@@ -54,7 +73,11 @@ class Tests(unittest.TestCase):
             self.assertIn(name, tr)
         self.assertIn("Stage 4", en)
         self.assertIn("Aşama 4", tr)
-        self.assertNotIn("basamak-ai-skills", tr)
+        for path in ("workflows/automation-opportunity-to-design.md",
+                     "workflows/automation-opportunity-to-design.tr.md"):
+            text = (ROOT / path).read_text(encoding="utf-8")
+            for name in ("automation-discovery", "ai-feasibility", "workflow-architect"):
+                self.assertIn(name, text)
 
     def test_bash_syntax(self):
         subprocess.run(["bash", "-n", str(INSTALL)], check=True)

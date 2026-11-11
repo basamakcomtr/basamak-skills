@@ -45,4 +45,6 @@ This updates linked instructions. Review the [changelog](../CHANGELOG.md) before
 
 Remove only symlinks you have confirmed point into this checkout, either in `~/.agents/skills/` or in your project. Don't remove unrelated skills. You can then delete the cloned repository.
 
-The scripts do not request credentials or access external services. Canonical `SKILL.md` instructions are in English. Every skill includes `SKILL.tr.md` containing the original Turkish instructions. The model should respond in your requested language; English model behavior has not yet been validated in an end-to-end Codex test.
+The scripts do not request credentials or access external services. Canonical `SKILL.md` instructions are in English. Every skill includes `SKILL.tr.md` with the corresponding Turkish instructions. The first five retain their original Turkish instructions; the new skills are authored in both languages. The model should respond in your requested language; English model behavior has not yet been validated in an end-to-end Codex test.
+
+The installer currently links all 13 skills. Other agent environments may need different paths and have not been validated end-to-end here.
