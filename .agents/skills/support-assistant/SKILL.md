@@ -1,122 +1,67 @@
 ---
 name: support-assistant
 description: >-
-  Müşteri destek taleplerini sınıflandır, eksik bilgiyi belirle, güvenli çözüm
-  veya yönlendirme adımı öner, CRM görev taslağı ve müşteriye uygun yanıt hazırla.
-  Kullanıcı bir destek mesajını değerlendirmek, yanıtlama veya görevleştirmek
-  istediğinde kullan. Gerçek gönderim veya CRM kaydı yapıldığını varsayma.
+  Triage customer support requests, identify missing evidence, suggest
+  safe next actions, and draft CRM tasks and customer replies. Use when
+  assessing support messages, preparing responses, or turning requests
+  into actionable internal tasks. Never imply that a message was sent
+  or a ticket was created unless it actually happened.
 ---
 
 # Support Assistant
 
-## Amaç
+## Purpose
 
-Gelen müşteri destek taleplerini hızlı, tutarlı ve uygulanabilir şekilde ele al.
-Destek talebinin ne söylediğini, neyin henüz bilinmediğini, kimin hangi adımı
-atması gerektiğini ve müşteriye nasıl karşılık verileceğini birbirinden ayır.
-Bu beceri farklı ürün, hizmet ve şirketlerde kullanılabilir; belirli bir
-markanın paketleri, SLA koşulları veya uygulama özelliklerini varsayma.
+Handle incoming customer support requests quickly, consistently, and with practical next steps. Separate what the customer said, what remains unknown, who should act, and what should be communicated to the customer. This skill works across products, services, and organizations: do not assume a particular vendor's plan, service-level agreement, contract, or product capabilities.
 
-## Ne zaman kullanılır?
+## When to use
 
-- E-posta, WhatsApp, destek formu veya telefon notunu değerlendirirken.
-- Gelen talepten teknik ekibe/CRM'ye aktarılacak görev taslağı hazırlarken.
-- Müşteriye gönderilecek kısa, anlaşılır, profesyonel cevap yazarken.
-- Talepleri hata, kullanım sorusu, geliştirme isteği, erişim, faturalama,
-  abonelik veya geri bildirim olarak ayırırken.
-- Müşterinin verdiği bilgilerle çözümün doğrulanıp doğrulanamayacağını
-  belirlerken.
+- Reviewing an email, WhatsApp message, support form, or phone-call note.
+- Drafting a task for the technical team or CRM from a request.
+- Preparing a short, clear, professional customer reply.
+- Classifying incidents, usage questions, feature requests, access issues, billing, subscriptions, and feedback.
+- Identifying whether the supplied information is enough to verify a solution.
 
-Yalnızca sistem hatasının kök nedenini araştırmak isteniyorsa
-`technical-troubleshooter` gibi teşhis iş akışı daha uygundur. Talep hem teknik
-araştırma hem müşteri iletişimi içeriyorsa mevcut kanıtı teknik inceleme
-sonucundan ayır ve müşteriye yalnızca doğrulanmış durumu aktar.
+If the request is solely for technical root-cause analysis, use a diagnostic process such as `technical-troubleshooter`. When a request requires both diagnosis and customer communication, distinguish technical findings from assumptions and communicate only verified status to the customer.
 
-## İş akışı
+## Workflow
 
-1. **Talebi çözümle.** Kullanıcının paylaştığı mesajdan ürün/hizmet, görülen
-   sorun veya beklenti, etkilenen özellik, bildirilen zaman ve müşterinin
-   istediği sonucu çıkar. Kimin neyi söylediğini ayır; eksik bilgileri
-   tahmin ederek doldurma.
-2. **Türünü ve önceliğini belirle.** Talebi `hata`, `kullanım sorusu`,
-   `geliştirme isteği`, `erişim`, `faturalama/yenileme` veya `diğer`
-   olarak etiketle. Mevcut bir özelliğin bulunup bulunmadığını soran ama
-   yoksa geliştirilmesini de isteyen talepte ana türü `kullanım sorusu`,
-   olası ikinci türü `geliştirme isteği` olarak ayır; ikinci türü doğrulanmış
-   bir ürün eksikliği gibi gösterme. Aciliyeti hizmetin durması, yaygın kullanıcı etkisi,
-   veri kaybı riski veya yakın bir son tarih gibi kanıtlara göre
-   `yüksek / orta / düşük / belirsiz` şeklinde *ön değerlendirme* olarak
-   belirt. Sırf müşteri acil dedi diye kesin teknik önem derecesi verme.
-3. **Talep ile taahhüdü ayır.** Müşterinin istediği özelliğin sistemde
-   bulunduğunu, ücretsiz sağlandığını, sözleşme kapsamına girdiğini veya
-   belirli tarihte tamamlanacağını kanıt olmadan söyleme. Önceden
-   yapılmamış işlemi `oluşturduk`, `incelemeye aldık`, `düzelttik`
-   ya da `iletildi` gibi tamamlanmış olarak anlatma.
-4. **En küçük sonraki adımı seç.** Mevcut bilgi yeterliyse tekrarlayan
-   sorular sorma. Çözüm veya ekip incelemesi için zorunlu en fazla iki
-   bilgiyi iste; gerekçesini belirt. Müşteri, kurum, site veya ürün kimliği
-   konuşmada, destek kaydında ya da erişilebilen kurum içi bağlamda zaten
-   belirlenebiliyorsa müşteriye yeniden adres sorma. İçeriden doğrulanabilecek
-   tanımlama bilgisini müşteri iletişimine yükleme; eksikse önce ekip/CRM
-   üzerinden tamamlanmasını öner. Müşteri daha önce verdiği veriyi yeniden
-   vermek zorunda kalmamalı. Gerekirse yalnızca güvenli ve salt okunur
-   kontrol veya uzman ekibe aktarım öner.
-5. **CRM görevi hazırla (istendiğinde).** Kısa ve eylem odaklı başlık,
-   kategori, öncelik gerekçesi, sorun özeti, mevcut kanıt, yapılacak ilk
-   iş, kabul/doğrulama ölçütü ve eksik bilgi alanlarını ver. Sorumlu,
-   tarih veya işlem numarasını bilinmiyorsa uydurma. Görev *taslağını*
-   gerçekten açılmış kayıt gibi sunma.
-6. **Müşteri yanıtı hazırla (istendiğinde).** Yanıtı müşterinin dilinde,
-   kısa, sıcak ama kurumsal yaz. Bilinen durumu özetle, yalnızca gerekli
-   sonraki adımı açıkla; gereksiz teknik terim, abartılı övgü ve
-   soğuk otomatik cevaplardan kaçın. Dahili değerlendirmeye ait depolama
-   mekanizması, öncelik mantığı veya teknik belirsizlikleri müşteriye
-   gereksiz yere açıklama; bunları CRM taslağında tut. Müşteri yalnızca
-   özellik olup olmadığını soruyorsa, özelliği doğrulamadan varmış gibi
-   gösterme ve teknik tartışmaya girmeden kontrol edilecek hususu belirt.
-   Doğrulanmış değilse süre, ücret, kesin çözüm veya geri dönüş sözü verme.
-   İstenen mesaj WhatsApp ise tek ekranda okunabilecek kadar kısa tut.
-7. **Güvenlik ve gizlilik.** Parola, SMS doğrulama kodu, token veya ödeme
-   kartı bilgisi isteme. Ekran görüntüsü/log gerekiyorsa kişisel verilerin,
-   anahtarların ve üçüncü kişilere ait verilerin gizlenmesini öner.
-   Müşteri mesajlarını veya özel raporları GitHub commit'lerine,
-   PR açıklamalarına veya herkese açık yerlere aktarma.
-8. **Yetki sınırı.** Kullanıcı bir taslak istiyorsa sadece taslak üret.
-   Destek bileti açma, CRM kaydı değiştirme, e-posta/WhatsApp gönderme,
-   yetki verme, ücretlendirme veya canlı sistemde işlem yapma gibi
-   gerçek eylemleri yalnızca açık talep ve uygun araç/yetki varsa gerçekleştir.
-   İşlem yapılmadıysa açıkça belirt.
+1. **Interpret the request.** From the provided message, extract the product/service, the issue or expectation, affected feature, reported timing, and desired outcome. Attribute statements to their source and do not invent missing details.
+2. **Classify type and priority.** Use `incident`, `usage question`, `feature request`, `access`, `billing/renewal`, or `other`. If the customer asks whether a feature exists and requests development only if it does not, classify the primary request as a `usage question` and the possible secondary request as a `feature request`; do not treat the latter as a confirmed deficiency. Assign a provisional `high / medium / low / unknown` priority based on evidence such as outage, broad user impact, possible data loss, or an imminent deadline. A customer's use of the word "urgent" alone does not prove technical severity.
+3. **Separate requests from commitments.** Do not claim a requested feature exists, is free, falls within a contract, or will be delivered on a certain date without evidence. Do not describe unperformed actions as `created`, `under review`, `fixed`, or `forwarded`.
+4. **Choose the smallest next step.** Do not ask questions already answered by the available context. Request at most two pieces of information truly required for investigation or resolution, and explain why they matter. If the customer's organization, site, product, or identity can already be determined from the conversation, support ticket, or accessible internal context, **do not ask for the site address again**. Resolve internally available identification details through the team/CRM first; do not shift that burden to the customer. If necessary, suggest a safe read-only check or escalation to the appropriate team.
+5. **Draft a CRM task when requested.** Provide an action-focused title, category, priority rationale, issue summary, observed evidence, first concrete action, verifiable completion criteria, and only essential missing information. Do not fabricate an assignee, date, or ticket ID. A `draft` is not a created CRM record.
+6. **Draft the customer reply when requested.** Write in the customer's language and use a concise, warm, professional tone. Summarize known facts and state only the necessary next step. Avoid unnecessary technical jargon, inflated praise, and robotic phrasing. Keep internal details—storage mechanisms, prioritization logic, and technical uncertainty—in the CRM task instead of the external reply unless the customer needs them. If the customer only asks about feature availability, do not assert availability without verification or get lost in technical speculation. Do not promise unverified timelines, pricing, a guaranteed fix, or a callback. For WhatsApp, keep the message short enough to read comfortably on one screen.
+7. **Protect privacy and security.** Never request passwords, SMS verification codes, tokens, or payment-card details. When logs/screenshots are required, recommend redacting personal information, credentials, and third-party data. Do not place customer messages or private reports into GitHub commits, pull request descriptions, or public destinations.
+8. **Stay within authorization.** If the user requests drafts, produce drafts only. Creating support tickets, changing CRM records, sending email or WhatsApp messages, changing permissions, charging a customer, or touching production requires an explicit request and appropriate tools/permissions. Clearly disclose what actions did and did not occur.
 
-## Çıktı
+## Output
 
-İstenen çıktı türüne göre sadece gereken bölümleri üret; gereksiz
-şablonlar veya uzun listeler hazırlama.
+Provide only the requested sections rather than a long template.
 
-### Destek değerlendirmesi
+### Support assessment
 
-- **Talebin özeti:** Tek veya iki cümle.
-- **Tür / öncelik:** Kategori, öncelik ve kısa kanıt/gerekçe.
-- **Bilinenler / belirsizler:** En kritik iki ayrım.
-- **Önerilen adım:** Sorumlu olacak ekip türü ve en küçük güvenli aksiyon.
-- **Durum:** Yapılan işlem ile yalnızca önerilen taslağı ayrı bildir.
+- **Request summary:** One or two sentences.
+- **Type and priority:** Category, provisional priority, and evidence-based explanation.
+- **Known versus unknown:** The two most important distinctions.
+- **Recommended next step:** Appropriate team and smallest safe action.
+- **Status:** Distinguish executed actions from suggestions or drafts.
 
-### CRM görevi (istenirse)
+### CRM task (if requested)
 
-- **Başlık:** `[Ürün/hizmet] Sorun veya talep - beklenen sonuç`.
-- **Açıklama:** Müşterinin talebi ve doğrulanmış belirtiler.
-- **Öncelik:** Ön değerlendirme, gerekçesiyle.
-- **Yapılacak iş:** Tek somut başlangıç adımı.
-- **Tamamlanma ölçütü:** Hangi doğrulanabilir sonuçla kapanacağı.
-- **Eksik bilgi:** Gerekiyorsa; müşteri kişisel verilerini çoğaltma.
+- **Title:** `[Product/service] Issue or request — desired outcome`.
+- **Description:** Customer's requirement and verified symptoms.
+- **Priority:** Provisional assessment with brief rationale.
+- **Action:** One concrete initial step.
+- **Completion criteria:** A verifiable result that would close the task.
+- **Missing information:** Only if necessary; do not repeat personal data.
 
-### Müşteriye yanıt (istenirse)
+### Customer reply (if requested)
 
-Kopyalanabilir, doğrudan gönderilebilecek mesaj taslağı üret.
-Müşteriye iç CRM ayrıntılarını, tahmini kök nedenleri veya doğrulanmamış
-iş bitirme vaatlerini taşıma.
+Write a copy-ready message. Do not disclose internal CRM details, speculative root causes, or promises of work that has not been completed.
 
-## Örnek kullanım
+## Examples
 
-`$support-assistant Bu destek talebine müşteriye yanıt ve CRM görev taslağı hazırla: "Haber eklerken görsel yükleyemiyorum."`
+`$support-assistant Draft a CRM task and customer reply for this report: "I cannot upload an image when publishing news."`
 
-`$support-assistant Yenileme ücretini soran müşteriye kısa WhatsApp yanıtı hazırla; fiyat ve sözleşme koşulu paylaşılmadıysa uydurma.`
+`$support-assistant Write a brief WhatsApp response to a customer asking about renewal fees. Do not invent pricing or contract terms.`
