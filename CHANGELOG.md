@@ -1,5 +1,15 @@
 # Changelog / Sürüm geçmişi
 
+## [1.2.0] - 2026-11-11
+
+- Added eight original bilingual skills for conversion, SaaS positioning, pricing, automation discovery, workflow architecture, AI feasibility, release readiness and subscription lifecycle.
+- Expanded from five to thirteen skills; preserved existing five unchanged.
+- Added an English/Turkish automation handoff guide and refreshed both READMEs.
+- Updated distribution and installer smoke checks for thirteen skills.
+
+Static package checks do not prove agent compatibility, response quality or real-world task outcomes.
+No production systems, credentials or paid integrations are included.
+
 ## [1.1.0] - 2026-11-11
 
 - English canonical SKILL.md instructions and discoverable descriptions for all five skills.
