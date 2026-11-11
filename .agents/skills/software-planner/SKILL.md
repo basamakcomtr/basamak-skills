@@ -1,110 +1,54 @@
 ---
 name: software-planner
 description: >-
-  Yazılım özellik, entegrasyon veya geliştirme taleplerini uygulanabilir
-  kapsama, teknik yaklaşım seçeneklerine, küçük geliştirme görevlerine ve
-  ölçülebilir kabul kriterlerine dönüştür. Kullanıcı bir yazılım işi için
-  plan, backlog veya teknik görev kırılımı istediğinde kullan. Kod yazma,
-  dağıtım veya CRM kaydı oluşturma yetkisi vermez.
+  Convert software feature requests, integrations, and change proposals into
+  scoped implementation approaches, small development tasks, and measurable
+  acceptance criteria. Use when a user asks for a technical plan, backlog,
+  or implementation breakdown. Planning does not authorize coding, deploying,
+  or creating CRM records.
 ---
 
 # Software Planner
 
-## Amaç ve kullanım
+## Purpose and use
 
-Bir yazılım talebini yazılım ekibinin uygulayabileceği **küçük, açık ve
-doğrulanabilir** bir plana dönüştür. Beceriyi yeni özellik, mevcut özelliğin
-iyileştirilmesi, entegrasyon, sürüm geçişi veya teknik iş listesi hazırlamak
-için kullan. Teknoloji, süre, maliyet, mevcut ürün yeteneği ya da iş akışına
-dair kanıt bulunmayan iddialar üretme.
+Turn a software request into a **small, clear, verifiable** plan that an engineering team can execute. Use for new features, improving existing functionality, integrations, version transitions, or technical task breakdowns. Do not invent facts about technology, timelines, costs, existing product capabilities, or workflows without evidence.
 
-Bu beceri plan hazırlar; kullanıcı istemedikçe kodu değiştirmez, gerçek
-görev kaydı açmaz, PR oluşturmaz, yayına almaz.
+This skill creates plans only. It does not change code, create real tasks, open PRs, or deploy unless those actions are separately requested and authorized.
 
-## Çalışma yöntemi
+## Process
 
-1. **Talebi ve beklenen sonucu anla.** Kullanıcının verdiği metin, destek
-   kaydı, ürün bağlamı veya mevcut dosyalardan hedef kullanıcıyı,
-   yaşadığı problemi ve beklediği davranışı çıkar. Zaten bilinen
-   bilgileri tekrar sorma. Sonucu açık değilse en küçük uygulanabilir
-   varsayımı belirt; karar için gerçekten gerekli tek soruyu sor.
-2. **Gerçek durum ile öneriyi ayır.** Depo, şema, ekran veya API erişimi
-   varsa yalnızca ilgili alanları salt okunur incele; dosya yolu ve
-   işlev adlarıyla kanıt göster. Erişim yoksa mimariyi, veritabanı
-   tablolarını, mevcut özelliği, kullanılan servisleri ve API uçlarını
-   icat etme. Gerekli teknik keşfi ayrı bir ilk görev olarak belirt.
-3. **Kapsamı sınırla.** Kullanıcının istediği çekirdek akışı 1-2 cümlede
-   özetle. **Dahil olanlar**, **kapsam dışı kalanlar** ve varsa
-   **bağımlılıklar** açık olsun. Sırf mümkün diye yönetim paneli,
-   kapsamlı yeniden tasarım veya yeni bir teknoloji önerme. Mevcut
-   mimariyle en az müdahaleli çözümü önce değerlendir.
-4. **Kullanıcı akışını tarif et.** Tetikleyici, beklenen işlem,
-   başarılı sonuç ve önemli hata/boş durumlarını belirt. İlgiliyse
-   rol ve yetkileri, çoklu kullanıcı davranışını ve erişilebilirliği
-   düşün; bunları varsayılan ürün özellikleri olarak sunma.
-5. **Teknik yaklaşımı seç.** Bilinen altyapıyla uyumlu en küçük
-   yaklaşımı yaz. Teknik belirsizlik gerçek bir tasarım kararını
-   etkiliyorsa en fazla iki seçenek ve kısa artı/eksi sun. Veri
-   değişikliği, taşıma, mevcut kayıtlarla uyumluluk, güvenlik,
-   gizlilik, hata yönetimi ve geri dönüş gereksinimini sadece
-   ilgiliyse ekle. Üretimdeki verileri temizlemeyi varsayma.
-6. **Görevleri uygulanabilir parçalara ayır.** Tercihen 3-6 iş paketi
-   oluştur; gereksiz alt görev kalabalığı yaratma. Her görev için
-   eylem, ilgili alan veya bileşen (biliniyorsa), bağımlılık ve
-   doğrulanabilir **bitti ölçütü** yaz. Önce kritik belirsizliği
-   kaldır; sonra geliştirme, ilgili kontroller ve yayına hazırlık
-   sırasını kur. Sahip, tarih, efor veya maliyet kullanıcı
-   sağlamadıysa kesin değer uydurma.
-7. **Kabul kriterlerini ölçülebilir yaz.** Kullanıcının gözlemleyebileceği
-   şekilde **verildiğinde / yapıldığında / beklenen** mantığıyla
-   normal akış ve önemli başarısızlık senaryosu yaz. "Düzgün
-   çalışır", "hızlı olur" gibi doğrulanamaz hedeflerle yetinme.
-8. **Doğrulama ve yayımlama ayrımı yap.** Değişikliğe en yakın küçük
-   birim, entegrasyon veya manuel senaryoları öner. Testlerin
-   gerçekten çalıştırılmadığını belirt; ölçülmemiş performans
-   ve güvenlik garantisi verme. Üretime geçiş, veri migrasyonu,
-   bakım penceresi veya geri dönüş riski varsa ayrıca belirt.
-9. **Yetki ve veri güvenliğini koru.** Planın hazırlanması kodu,
-   CRM'yi, müşteriyi veya canlı sistemi değiştirme izni değildir.
-   Yetki verilmedikçe commit, push, görev açma, deploy, veri yazma,
-   silme, izin genişletme ya da gerçek entegrasyon çağrısı yapma.
-   Gizli anahtarları ve müşteri verilerini rapora veya Git'e taşıma.
+1. **Understand the request and expected outcome.** Use the provided request, support ticket, product context, or available files to identify the intended user, their problem, and desired behavior. Do not ask for information already given. If the outcome is unclear, state the smallest workable assumption and ask only one question if the decision truly requires it.
+2. **Separate facts from proposals.** If repository, schema, screen, or API access is available, inspect only the relevant areas in read-only mode and cite file paths and function names as evidence. Without access, do not fabricate the architecture, database tables, features, providers, or endpoints. Make any required technical discovery a separate first task.
+3. **Constrain scope.** Describe the core user journey in one or two sentences. Identify what is **included**, **excluded**, and any **dependencies**. Do not add administration screens, broad redesign, or new technology merely because it is possible. Prefer the least disruptive solution compatible with the existing architecture.
+4. **Describe the user flow.** Cover its trigger, expected action, success state, and important error or empty states. Where relevant, consider roles, permissions, concurrent users, and accessibility, without assuming these capabilities already exist.
+5. **Choose a technical approach.** Prefer the smallest approach compatible with the known stack. If a real uncertainty changes the design decision, compare no more than two options with short tradeoffs. Mention data changes, migration, backward compatibility, security, privacy, error handling, or rollback only where relevant. Never assume that live data can be wiped.
+6. **Break work into practical tasks.** Prefer three to six work packages rather than unnecessary subtasks. Each task should specify an action, component or area (if known), dependencies, and a verifiable **definition of done**. Resolve critical unknowns first, then sequence implementation, focused checks, and release preparation. Do not invent specific owners, dates, estimates, or costs.
+7. **Write measurable acceptance criteria.** Use a **given / when / then** structure that describes observable normal behavior and an important failure scenario. Avoid untestable criteria such as "works well" or "is fast."
+8. **Separate validation from deployment.** Suggest the smallest relevant unit, integration, or manual scenarios. Explicitly state that tests were **not run** unless executed. Do not guarantee unmeasured performance or security. Where applicable, identify production rollout, data migration, maintenance window, and rollback risks.
+9. **Respect permissions and sensitive data.** Planning does not permit modifications to code, CRM, customer accounts, or live systems. Without authorization, do not commit, push, create tickets, deploy, write or delete data, expand access, or call real integrations. Do not include credentials or private customer data in reports or Git history.
 
-## Çıktı
+## Output
 
-Kullanıcının istediği ayrıntı düzeyine göre **uygulanabilir ve kısa**
-bir plan ver. Basit taleplerde gereksiz başlıkları birleştirebilirsin.
+Provide an **actionable, concise** plan at the user's requested level of detail. Combine headings for straightforward requests.
 
-1. **Hedef ve kanıt düzeyi:** Ne değişecek, hangi kullanıcı için;
-   neler doğrulandı, neler varsayım?
-2. **Kapsam:** Dahil / kapsam dışı ve varsa bağımlılıklar.
-3. **Önerilen yaklaşım:** Mevcut sistemle uyumu, önemli teknik kararlar,
-   ilgili güvenlik veya veri riskleri.
-4. **Geliştirme görevleri:** Sıralı, küçük, uygulanabilir işler;
-   her biri için **bitti ölçütü**.
-5. **Kabul kriterleri:** En az bir normal kullanım ve ilgiliyse
-   bir hata/izin/boş durum senaryosu.
-6. **Açık kararlar ve doğrulama:** Sadece gerçekten önemli belirsizlikler,
-   asgari testler, varsa geri dönüş veya yayına alma riski.
+1. **Goal and evidence level:** What should change, for whom, what is verified versus assumed?
+2. **Scope:** Included work, exclusions, and dependencies.
+3. **Proposed approach:** Fit with the existing system, important technical decisions and relevant security/data risks.
+4. **Development tasks:** Ordered, small executable work packages, each with a **definition of done**.
+5. **Acceptance criteria:** At least one normal scenario and, when relevant, an error/permission/empty-state scenario.
+6. **Open decisions and verification:** Only consequential unknowns, minimal tests, and rollout or rollback risks if relevant.
 
-Kapsam ya da mevcut kod hakkında bilgi yoksa bir teknoloji yığını veya
-dosya yapısı uydurmak yerine **kısa teknik keşif görevi** oluştur.
-Kullanıcı yalnızca CRM görev taslağı istiyorsa tek görev halinde yaz;
-tüm proje planını gereksiz yere üretme.
+When code or scope is inaccessible, create a **short technical discovery task** instead of inventing a technology stack or file structure. If the user only wants a CRM task draft, produce one concise task—not an unnecessary full project plan.
 
-## Diğer becerilerle bağlantı
+## Relationship to other skills
 
-- `support-assistant`: Müşteri mesajını sınıflandırır ve destek/CRM
-  taslağını hazırlar; doğrulanmış ürün ihtiyacı `software-planner`
-  için girdi olabilir.
-- `technical-troubleshooter`: Çalışan bir sistemde gözlenen hatanın
-  kök nedenini araştırır; bu beceri geliştirme planını çıkarır.
-- `code-reviewer`: Geliştirme yapıldıktan sonra gerçek diff/PR
-  üzerindeki riskleri inceler; bu beceri kod incelemesi yapıldığını
-  iddia etmez.
+- `support-assistant`: Classifies customer messages and drafts support/CRM communications; a verified product need can become input for `software-planner`.
+- `technical-troubleshooter`: Investigates a failure in a running system; this skill plans a change.
+- `code-reviewer`: Reviews actual PR/diff risks after implementation; a plan does not imply that code has been reviewed.
 
-## Örnek çağrılar
+## Examples
 
-`$software-planner Tekrar kullanılan görseller için medya seçimi özelliğini en küçük kapsama ve kabul kriterlerine ayır.`
+`$software-planner Plan the smallest reusable-media selection feature with scope and acceptance criteria.`
 
-`$software-planner Bu özellik isteğini geliştiriciye verilecek 4-5 uygulanabilir göreve dönüştür; mevcut kod erişimi yoksa varsayımları açıkla.`
+`$software-planner Convert this feature request into four or five actionable engineering tasks; clearly state assumptions if code access is unavailable.`

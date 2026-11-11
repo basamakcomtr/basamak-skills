@@ -21,13 +21,40 @@ class Tests(unittest.TestCase):
             self.assertIn("description: >-\n", text.split("---\n", 2)[1])
 
     def test_docs(self):
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "1.0.0")
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "1.1.0")
         self.assertIn("MIT License", (ROOT / "LICENSE").read_text())
         for path in ("README.md", "README.tr.md", "docs/installation.md",
-                     "docs/kurulum.md", "CHANGELOG.md", "workflows/feature-request-to-review.md"):
+                     "docs/kurulum.md", "CHANGELOG.md", "workflows/feature-request-to-review.md",
+                     "workflows/feature-request-to-review.tr.md"):
             self.assertTrue((ROOT / path).is_file(), path)
         self.assertNotIn("basamak-ai-skills/.agents",
                          (ROOT / "workflows/feature-request-to-review.md").read_text())
+
+    def test_bilingual_skill_pairs(self):
+        for name in NAMES:
+            with self.subTest(name=name):
+                folder = SKILLS / name
+                english = (folder / "SKILL.md").read_text(encoding="utf-8")
+                turkish = (folder / "SKILL.tr.md").read_text(encoding="utf-8")
+                self.assertTrue(english.startswith("---\n"))
+                self.assertTrue(turkish.startswith("---\n"))
+                self.assertIn(f"name: {name}\n", english)
+                self.assertIn(f"name: {name}\n", turkish)
+                self.assertIn("description: >-\n", english)
+                self.assertIn("description: >-\n", turkish)
+                self.assertGreater(len(english), 1200)
+                self.assertGreater(len(turkish), 1200)
+                self.assertNotEqual(english, turkish)
+
+    def test_workflows_bilingual(self):
+        en = (ROOT / "workflows" / "feature-request-to-review.md").read_text(encoding="utf-8")
+        tr = (ROOT / "workflows" / "feature-request-to-review.tr.md").read_text(encoding="utf-8")
+        for name in ("support-assistant", "software-planner", "code-reviewer"):
+            self.assertIn(name, en)
+            self.assertIn(name, tr)
+        self.assertIn("Stage 4", en)
+        self.assertIn("Aşama 4", tr)
+        self.assertNotIn("basamak-ai-skills", tr)
 
     def test_bash_syntax(self):
         subprocess.run(["bash", "-n", str(INSTALL)], check=True)

@@ -1,150 +1,114 @@
-# Müşteri talebinden kod incelemesine
+# From customer request to code review
 
-**Amaç:** Gelen bir özellik isteğini doğru sınıflandırıp uygulanabilir geliştirme
-planına ve gerçek bir PR üzerinde güvenli kod incelemesine aktarmak.
+[**Türkçe**](feature-request-to-review.tr.md)
 
-Bu, otomatik çalışan bir orkestrasyon değildir. Her aşama ayrı bir Codex
-görevi olabilir. **Önceki aşamanın çıktısını sonraki göreve kullanıcı taşır.**
-Bu repo bir iş akışı rehberi sunar; müşteri CRM'sine veya ürün koduna bağlanmaz.
+**Goal:** Classify a feature request, turn an approved change into an implementable plan, and review actual code changes using evidence.
 
-## Başlamadan önce
+This is a documented handoff, **not an autonomous orchestration**. Each step may be a separate Codex task; **the user passes its output to the next step**. No CRM connection or product repository access is provided by these skills.
 
-Buradaki SKILL.md yolları varsayılan kullanıcı kurulumuna (`~/.agents/skills/`) göredir.
-Proje kapsamlı kurulumda projenin `.agents/skills/` yolunu kullanın.
+## Before starting
 
+The paths below assume a user-level Codex installation at `~/.agents/skills/`. For a project-level setup, use the project's `.agents/skills/` directory.
 
-- İlgili ürün, müşteri talebi ve (varsa) destek kaydını belirle.
-- Müşteriye ait kişisel verileri, erişim anahtarlarını ve gizli logları
-  görev metninden çıkar; GitHub'a kopyalama.
-- Kod veya PR incelemesi gerekiyorsa gerçek **ürün deposuna** erişim
-  gerekir. Bu beceri deposu, ürün uygulamasının kodunu içermez.
-- Codex otomatik beceri keşfine güvenme: her görevde ilgili SKILL.md
-  dosyasını doğrudan okut.
+- Establish the product, customer request, and any known support ticket.
+- Redact personal information, keys, and private logs. Never publish customer data in this repository.
+- Code review requires access to the real **product repository**, not this skills distribution.
+- If automatic skill discovery is unavailable, load the appropriate `SKILL.md` directly.
 
-## Aşama 1 — Talebi değerlendir
+## Stage 1 — Support assessment
 
-**Beceri:** `support-assistant`
+**Skill:** `support-assistant` — `.agents/skills/support-assistant/SKILL.md`
 
-**Talimat dosyası:** `.agents/skills/support-assistant/SKILL.md`
-
-**Codex görevi:**
+**Codex task:**
 
 ```text
-~/.agents/skills/support-assistant/SKILL.md
-dosyasını oku ve talimatları uygula.
+Read ~/.agents/skills/support-assistant/SKILL.md and follow the instructions.
 
-Aşağıdaki destek talebini değerlendir: [TALEP METNİ]
-Bilinen ürün ve müşteri bağlamı: [VARSA BAĞLAM]
+Customer request: [REQUEST]
+Known customer and product context: [AVAILABLE CONTEXT]
 
-Tür ve öncelik için kısa gerekçe; doğrulanmış bilgiler ve belirsizlikler;
-iç kullanım için CRM görev taslağı; müşteriye kısa yanıt hazırla.
-Özelliğin mevcut olduğunu varsayma. Önceden verilen bilgiyi tekrar isteme.
-Görev açma, mesaj gönderme veya sistemde değişiklik yapma.
+Provide type and provisional priority with evidence; verified facts and unknowns;
+a CRM task draft for internal use; and a brief customer reply.
+Do not assume a feature exists. Do not ask again for known details.
+Do not create records, send messages, or change any system.
 ```
 
-**Devredilecek çıktı:** Talebin özeti, beklenen kullanıcı sonucu,
-bilinenler/bilinmeyenler, varsa önerilen geliştirme ihtiyacı ve
-yapılmamış işlemlerin durumu.
+**Handoff:** Request summary, desired outcome, facts versus unknowns, possible development need, and actions that did not occur.
 
-**Karar noktası:** Talep bir kullanım sorusuysa önce özelliğin
-mevcudiyetini yetkili ekip doğrulasın. Özellik veya değişiklik
-ihtiyacı netleşmediyse geliştirme kararı verilmiş gibi ilerleme.
+**Decision gate:** If the customer is asking whether an existing feature is available, confirm that first. A usage question is not automatically an approved development request.
 
-## Aşama 2 — Geliştirme planını oluştur
+## Stage 2 — Software planning
 
-**Beceri:** `software-planner`
+**Skill:** `software-planner` — `.agents/skills/software-planner/SKILL.md`
 
-**Talimat dosyası:** `.agents/skills/software-planner/SKILL.md`
-
-**Codex görevi:**
+**Codex task:**
 
 ```text
-~/.agents/skills/software-planner/SKILL.md
-dosyasını oku ve talimatları uygula.
+Read ~/.agents/skills/software-planner/SKILL.md and follow the instructions.
 
-Önceki aşamanın özeti: [AŞAMA 1 ÇIKTISI]
-İstenen geliştirme kararı: [ONAYLANMIŞ KAPSAM]
-İlgili ürün deposu veya teknik kanıt: [VARSA]
+Stage 1 summary: [HANDOFF FROM STAGE 1]
+Approved scope: [APPROVED CHANGE]
+Product repository or technical evidence: [IF AVAILABLE]
 
-Önce mevcut durumla varsayımları ayır. En küçük uygulanabilir kapsamı,
-kapsam dışını, sıralı geliştirme görevlerini ve her görev için bitti ölçütünü
-hazırla. Normal kullanım ve önemli hata/izin durumu için kabul kriterleri
-yaz. Kod erişimi yoksa tablo, API veya bileşen adı uydurma.
-Dosya değiştirme, commit, push veya deploy yapma.
+Distinguish verified behavior from assumptions. Define the smallest viable scope,
+explicit exclusions, ordered implementation tasks with definitions of done,
+and acceptance criteria for normal and important error/permission scenarios.
+Do not invent tables, APIs, or components when source access is unavailable.
+Do not edit files, commit, push, or deploy.
 ```
 
-**Devredilecek çıktı:** Onaylanan kapsam ve kapsam dışı işler, teknik
-kararlar/varsayımlar, iş paketleri, kabul kriterleri, bağımlılıklar,
-asgarî doğrulama ve varsa veri/dağıtım riskleri.
+**Handoff:** Agreed scope and exclusions, technical decisions and assumptions, work packages, acceptance criteria, dependencies, minimal checks, and any data or release risks.
 
-**Karar noktası:** Bir geliştirici veya yetkili kişi kapsamı ve kabul
-kriterlerini onaylamadan uygulamaya geçme. Kritik teknik belirsizlik varsa
-önce kısa keşif görevi tamamlanmalı.
+**Decision gate:** An authorized owner must approve scope and acceptance criteria before implementation. Resolve critical technical unknowns through a short discovery task.
 
-## Aşama 3 — Uygulama (beceri dışında)
+## Stage 3 — Implementation by the authorized team
 
-Planı gerçek ürün deposunda çalışan yetkili geliştirme ekibine aktar.
-Uygulama, `basamak-ai-skills` deposunda değil ilgili uygulama deposunda
-yapılır. Değişiklik için ayrı yetki, uygun dal/PR ve ilgili kontroller gerekir.
+The approved work happens in the actual **product repository**, not this skills repository. Development requires separate authorization, a suitable branch or PR, and relevant checks.
 
-**Devredilecek çıktı:** Gerçek PR bağlantısı veya erişilebilir diff,
-değişen davranış, ilgili kabul kriterleri, yapılan testler ve bilinen
-sınırlamalar. **Henüz PR/diff yoksa kod incelemesi tamamlandı deneme.**
+**Handoff:** Real PR URL or available diff, changed behavior, acceptance criteria, commands/results of tests actually run, and known limitations. **Without a real PR/diff, no code review has been performed.**
 
-## Aşama 4 — PR incelemesi
+## Stage 4 — Code review
 
-**Beceri:** `code-reviewer`
+**Skill:** `code-reviewer` — `.agents/skills/code-reviewer/SKILL.md`
 
-**Talimat dosyası:** `.agents/skills/code-reviewer/SKILL.md`
-
-**Codex görevi:**
+**Codex task:**
 
 ```text
-~/.agents/skills/code-reviewer/SKILL.md
-dosyasını oku ve talimatları uygula.
+Read ~/.agents/skills/code-reviewer/SKILL.md and follow the instructions.
 
-Gerçek PR veya diff: [PR URL / DIFF]
-Onaylanan kapsam ve kabul kriterleri: [AŞAMA 2 ÇIKTISI]
-Geliştiricinin test özeti: [VARSA]
+Actual PR/diff: [PR URL / DIFF]
+Approved scope and acceptance criteria: [STAGE 2 HANDOFF]
+Developer's test results: [IF AVAILABLE]
 
-Değişiklikleri planlanan davranış ve kabul kriterlerine göre incele.
-Yalnızca kanıtlanabilir işlevsel, güvenlik veya regresyon risklerini dosya
-ve satır referanslarıyla belirt. Kanıtlanmış sorun yoksa açıkça söyle.
-Çalıştırmadığın testleri çalıştırılmış gösterme.
-Kod değiştirme, PR onaylama, merge veya deploy yapma.
+Review actual changes against the approved behavior. Report only evidence-backed
+functional, security, or regression findings with real file/line references.
+Say clearly if no substantiated issues were found.
+Do not claim to have run tests you did not run.
+Do not modify code, approve or merge a PR, or deploy.
 ```
 
-**Devredilecek çıktı:** Önceliklendirilmiş gerçek bulgular (varsa),
-testlerin gerçekten doğruladığı alanlar, kalan belirsizlikler ve
-merge öncesi alınması gereken karar.
+**Handoff:** Prioritized supported findings, what test results really demonstrate, remaining uncertainty, and decisions needed before merge.
 
-**Karar noktası:** İnceleme sonucu tek başına merge veya canlıya dağıtım
-yetkisi sağlamaz. Son kararı yetkili kişi verir.
+**Decision gate:** A review does not authorize merging or production rollout; the authorized owner decides.
 
-## Tek kayıtlık devir özeti
-
-Her aşamanın sonunda yalnızca gerekli alanları aktar:
+## Minimal handoff template
 
 ```text
-Talep / hedef:
-Doğrulanmış mevcut durum:
-Belirsizlikler:
-Onaylanan kapsam:
-Kabul kriterleri:
-Çalışılan repo / PR:
-Gerçekten yapılan işlemler ve testler:
-Bir sonraki karar / sorumlu:
+Request / desired outcome:
+Verified current state:
+Unknowns:
+Approved scope:
+Acceptance criteria:
+Product repository / PR:
+Actions and tests actually performed:
+Next decision / responsible owner:
 ```
 
-Yalnızca ilgili alanları doldur; boş alanları varsayımla tamamlayıp
-doğrulanmış gibi gösterme. Müşteri mesajları, erişim bilgileri ve
-özel dokümanları bu kütüphanenin GitHub commit'lerine koyma.
+Do not fill unknown fields with assumptions. Never copy confidential customer material into the public skills repository.
 
-## Diğer beceriler ne zaman devreye girer?
+## Optional supporting skills
 
-- `technical-troubleshooter`: Yeni özellik talebi yerine üretimde
-  yaşanan bir hata varsa, belirtileri teşhis etmek için önce kullan.
-- `web-audit`: Geliştirme ihtiyacı web sitesi kullanıcı deneyimi
-  veya dönüşüm sorunu ise, ölçülmüş/gözlenmiş bulgularla planı besle.
+- `technical-troubleshooter` for observed production failures requiring diagnosis.
+- `web-audit` when user-experience or conversion evidence motivates the change.
 
-Bu iki beceri her işte zorunlu değildir; yalnızca ihtiyaç varsa kullan.
+Neither is mandatory for every request.

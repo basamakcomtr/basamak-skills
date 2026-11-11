@@ -1,33 +1,34 @@
 ---
 name: web-audit
 description: >-
-  Web sitelerini ve açılış sayfalarını kullanıcı deneyimi, içerik, güven,
-  erişilebilirlik ve dönüşüm akışı açısından kanıta dayalı incele.
-  Kullanıcı bir site değerlendirmesi veya öncelikli iyileştirme planı istediğinde kullan.
+  Evaluate websites and landing pages using evidence from accessible content,
+  visuals and visitor journeys. Review usability, copy, trust, accessibility
+  and conversion opportunities when a user requests a site audit or prioritized
+  improvements. Do not claim tests or measurements that were not performed.
 ---
 
 # Web Audit
 
-## Amaç ve sınır
+## Purpose and boundaries
 
-Bir web sitesinin ziyaretçi açısından nasıl çalıştığını değerlendir ve en değerli iyileştirmeleri öner. Bu beceri bir tasarım incelemesidir; erişim testi, güvenlik taraması, performans ölçümü veya canlı sistem düzenlemesi değildir.
+Assess how a website works for visitors and identify the most valuable improvements. This is a design and user-experience review, not a penetration test, security scan, performance benchmark, or authorization to change a live website.
 
-## Uygulama
+## Process
 
-1. **Hedefi belirle.** Site adresini, hedef kitleyi ve istenen ziyaretçi eylemini mevcut konuşmadan çıkar. Bilgi eksikse makul kapsam belirle; uzun anket yapma.
-2. **Erişimi doğrula.** Mevcut araçlarla ana sayfayı ve kritik ziyaretçi yolculuğuna ait en çok üç ilgili sayfayı incele. Kaynak adresini ve inceleme tarihini kaydet. Erişim yoksa bunu açıkça söyle.
-3. **Gördüğünle tahmin ettiğini ayır.** Metin/HTML incelemesi, ekran görüntüsü, tarayıcı üzerinden mobil emülasyon, fiziksel mobil cihaz ve kullanıcı davranışı birbirine eşdeğer değildir. Görsel inceleme yapıldıysa kullanılan görünüm türünü ve mümkünse ekran/viewport genişliği ile yüksekliğini kaydet. Mobil emülasyonu gerçek cihaz testi olarak sunma. Ekran görüntüsü olmadan renk, boşluk ve mobil yerleşim hakkında kesin hüküm kurma.
-4. **Yolculuğu kontrol et.** İlk ekranda sunulan değer, gezinme, hedef kitleye hitap, harekete geçirici çağrılar, form/iletişim adımları, güven unsurları, içerik açıklığı ve olası erişilebilirlik engellerini değerlendir.
-5. **Bulguları seç.** En fazla beş güçlü bulgu sun. Her biri için sayfa, gözlenen kanıt, ziyaretçi üzerindeki olası etki, uygulanabilir öneri ve öncelik ver.
-6. **Doğrulama sınırını koru.** Ölçüm aracı çalışmadıysa hız puanı, SEO sıralaması, dönüşüm artışı veya kullanıcı davranışı uydurma. Görsel kanıt yoksa görsel değerlendirme yapıldığını iddia etme. Sayfadaki örnek arayüz, reklam tasarımı, hata mesajı veya örnek rakamları sitenin gerçek teknik durumu ya da ölçülmüş performansı sanma; "görselde yer alan örnek" olarak ayır ve belirsizlik varsa belirt.
-7. **Güvenli kal.** Form gönderme, ödeme yapma, hesaba giriş yapma, site dosyalarını değiştirme veya otomatik tarama yükü oluşturma. Bu işlemler ayrıca açıkça yetkilendirilmelidir.
+1. **Identify the goal.** Determine the website URL, target audience, and desired visitor action from the conversation. If information is missing, choose a reasonable scope rather than asking a lengthy questionnaire.
+2. **Verify access.** Use available tools to review the homepage and up to three additional pages most relevant to the visitor journey. Record the source URLs and review date. Explicitly disclose pages that could not be accessed.
+3. **Separate observations from assumptions.** Reading text/HTML, inspecting a screenshot, testing a mobile browser emulation, viewing a physical mobile device, and observing real user behavior are different kinds of evidence. For visual inspection, record the viewing method and, where available, the screen or viewport width and height. Do not describe emulation as physical-device testing. Without screenshots or equivalent visuals, do not make definite claims about colors, spacing, or mobile layout.
+4. **Evaluate the journey.** Consider the first-screen value proposition, navigation, audience fit, calls to action, forms and contact steps, trust signals, content clarity, and possible accessibility barriers.
+5. **Select findings.** Report at most five substantial findings. For each, provide the page, observed evidence, possible visitor impact, actionable recommendation, and priority.
+6. **Respect verification limits.** Do not invent speed scores, search rankings, conversion lifts, or user behavior when they were not measured. Do not claim visual testing without visual evidence. A sample interface, illustrated error, marketing figure, or mock message on a page is not automatically a real production failure or a measured performance result; identify it as on-page illustrative content unless independently verified.
+7. **Stay safe.** Do not submit forms, make payments, sign into accounts, modify site files, or generate aggressive scanning traffic without explicit authorization.
 
-## Çıktı
+## Output
 
-- **İnceleme kapsamı:** URL'ler, tarih, kanıt türü (metin/HTML / masaüstü görsel / mobil emülasyon / fiziksel mobil cihaz). Görsel inceleme yapıldıysa kullanılan viewport veya ekran boyutlarını mümkün olduğunca belirt; görüntü alınamadıysa açıkça yaz.
-- **Ana sonuç:** En önemli iyileştirme alanını 1-2 cümleyle açıkla.
-- **Öncelikli bulgular:** En fazla beş madde; kanıt türü, sayfa/bölüm, olası etki, öneri, öncelik ve yaklaşık efor. Varsa her görsel bulguya ilgili ekran görüntüsünün gerçek referansını iliştir; referans mevcut değilse uydurma bağlantı veya görüntü numarası verme.
-- **Uygulama sırası:** Önce yapılacak 2-3 küçük adım.
-- **İncelenemeyenler:** Mobil görünüm, form davranışı, analitik veya performans gibi doğrulanamayan alanlar.
+- **Review scope:** URLs, date, and evidence type (text/HTML, desktop visual, mobile emulation, or physical device). If visual review occurred, include available viewport or screen dimensions; state explicitly if screenshots were unavailable.
+- **Main conclusion:** The single most valuable improvement area, in one or two sentences.
+- **Prioritized findings:** Up to five items containing evidence type, page/section, likely impact, recommendation, priority, and approximate effort. Where screenshots exist, attach a real reference for each visual finding; never invent a screenshot URL or number.
+- **Implementation order:** The first two or three small next steps.
+- **Not verified:** Areas such as mobile layout, forms, analytics, or performance that could not be checked.
 
-Raporu kullanıcı istemedikçe dosyaya yazma. Kullanıcı dosya isterse raporu `work/web-audit/` altında tut; özel raporları Git'e ekleme.
+Respond in the user's language unless requested otherwise. Do not write the report to a file unless asked. If a file is requested, place the report under `work/web-audit/` and do not commit private reports to Git.

@@ -1,35 +1,36 @@
 ---
 name: technical-troubleshooter
 description: >-
-  PHP, Laravel, veritabanı, Linux sunucu, DNS, GitHub ve dağıtım kaynaklı
-  teknik hataları kanıtlara dayanarak teşhis et. Kullanıcı hata nedeni,
-  güvenli kontrol veya düzeltme planı istediğinde kullan.
+  Investigate PHP, Laravel, database, Linux server, DNS, GitHub and deployment
+  failures using observable evidence. Use for root-cause diagnosis, safe
+  checks and narrowly scoped remediation plans; do not perform unapproved
+  production changes.
 ---
 
 # Technical Troubleshooter
 
-## Amaç ve sınır
+## Purpose and boundaries
 
-Yazılım veya altyapı sorununda önce kök nedeni daralt, sonra en düşük riskli çözümü öner. Bu beceri, üretim sistemlerinde otomatik işlem yetkisi vermez. Bir hata için kanıt olmadan geniş kapsamlı bakım önerme.
+Narrow down the root cause of an application or infrastructure problem before proposing the lowest-risk correction. This skill does not grant permission to act on production systems. Do not prescribe broad maintenance without evidence that it is relevant to the reported failure.
 
-## Çalışma yöntemi
+## Process
 
-1. **Belirtiyi kaydet.** Hata mesajı, etkilenen hizmet, ilk görülme zamanı, son değişiklik ve etki alanını kullanıcı bilgisinden çıkar. Gerekli olmayan ayrıntıları isteme.
-2. **Etkisini sınıflandır.** Hizmet tamamen durdu mu, belli kullanıcılar mı etkilendi, veri kaybı ihtimali var mı? Veri kaybı veya güvenlik olayı ihtimalinde değişiklik önermek yerine önce korumayı öne al.
-3. **En olası üç nedeni belirle.** Her olası nedeni ayırt edecek tek bir gözlem veya salt okunur kontrol seç. Kapsamlı ve tekrarlı komut listeleriyle kullanıcıyı yorma.
-4. **Salt okunur incelemeyle başla.** Kullanılabilir araçlarla log zamanlarını, hata kodlarını, konfigürasyonun ilgili alanlarını, sürümleri ve son değişiklikleri kontrol et. Komut önerirken neyi göstereceğini ve olası hassas verilerin nasıl gizleneceğini belirt.
-5. **Kanıtı değerlendir.** Kök nedeni ancak doğrudan kanıt varsa kesin olarak ifade et. Aksi durumda 'olası neden' de ve hangi veriyle ayrıştırılacağını söyle. Belirti ile nedeni karıştırma.
-6. **Düzeltmeyi küçült.** Doğrulanmış soruna yönelik en dar düzeltmeyi, olası etkiyi, geri dönüş yolunu ve son kontrolü açıkla. Kullanıcı onaylamadan üretimde değişiklik yapma.
-7. **Güvenlik sınırını koru.** Üretim veritabanında yazma/silme, servis yeniden başlatma, izinleri genişletme, firewall veya DNS değiştirme, secret gösterme, dosya silme, deploy ve `git reset --hard` gibi işlemler için açık yetki ve uygun geri dönüş planı gereklidir. Varsayılan yaklaşım salt okunurdur.
-8. **Durumu kapat.** Düzelme iddiasında bulunmadan önce ilgili hata belirtisini aynı koşullarda doğrula. Doğrulanamadıysa nedenini belirt.
+1. **Capture the symptom.** Extract the actual error message, affected service, first observed time, recent changes, and impact from the user's information. Do not request unnecessary details.
+2. **Classify the impact.** Is the service entirely unavailable, are only some users affected, or is data loss possible? Where data loss or a security incident is suspected, prioritize preserving evidence and systems over changing them.
+3. **Identify up to three plausible causes.** For each, choose one observation or read-only check that would distinguish it from the others. Avoid overwhelming the user with large or repetitive command sequences.
+4. **Begin with read-only investigation.** Using available access, examine relevant log times, error codes, configuration sections, versions, and recent changes. When proposing commands, explain what each would reveal and how potentially sensitive output should be redacted.
+5. **Assess the evidence.** State a root cause as confirmed only when direct evidence supports it. Otherwise call it a possible cause and identify the specific evidence needed to distinguish it. Do not confuse a symptom with its cause.
+6. **Minimize the fix.** For a verified problem, describe the narrowest corrective action, possible side effects, rollback plan, and a check of the original symptom. Do not change production without the user's approval.
+7. **Respect safety boundaries.** Writing or deleting production database data, restarting services, expanding permissions, changing firewalls or DNS, exposing secrets, deleting files, deploying, and commands such as `git reset --hard` require explicit authorization and an appropriate rollback strategy. Default to read-only operations.
+8. **Close with verification.** Before claiming the incident is resolved, recheck the original symptom under comparable conditions. If that is not possible, explain the limitation.
 
-## Yanıt biçimi
+## Response format
 
-- **Durum:** Görülen belirti, etki ve doğrulama seviyesi.
-- **Kanıt:** Log veya komut çıktısından kısa, hassas verisi çıkarılmış dayanak.
-- **Olası kök neden:** En güçlü açıklama; eminlik derecesi.
-- **Sıradaki güvenli adım:** Tercihen tek bir kontrol veya en az riskli düzeltme.
-- **Risk ve geri dönüş:** Değişiklik gerekiyorsa açıkla; uygulamadan önce yetki iste.
-- **Sonuç:** Ne doğrulandı, ne hâlâ bilinmiyor?
+- **Status:** Observed symptom, scope of impact, and verification level.
+- **Evidence:** Brief and appropriately redacted log excerpts or command outputs.
+- **Likely root cause:** Strongest explanation and confidence level.
+- **Next safe step:** Prefer one discriminating check or the least risky correction.
+- **Risk and rollback:** Explain when a change is proposed; request authorization before performing it.
+- **Outcome:** What was confirmed, and what remains unknown?
 
-Üretim ortamlarına erişim var diye yetki varsayma. Sorun teşhisini gereksiz testlerle uzatma; yüksek etkili eylemler için kanıt ve onay eşiğini düşürme.
+Answer in the user's language unless asked otherwise. Access to a production environment does not imply permission to modify it. Avoid unnecessary tests and repetitive troubleshooting, but never lower the evidence or approval threshold for high-impact changes.

@@ -1,87 +1,50 @@
 ---
 name: code-reviewer
 description: >-
-  GitHub PR, diff veya kod değişikliklerini işlevsel doğruluk, veri bütünlüğü,
-  güvenlik, geriye dönük uyumluluk, performans ve test riski açısından kanıta
-  dayalı incele. Kullanıcı kod incelemesi veya merge öncesi risk değerlendirmesi
-  istediğinde kullan; değişiklikleri kendiliğinden uygulama.
+  Review GitHub pull requests, diffs and code changes for evidence-based
+  correctness, data integrity, security, compatibility, performance and
+  test risks. Use when the user asks for a code review or pre-merge risk
+  assessment. Never modify code or approve or merge a PR implicitly.
 ---
 
 # Code Reviewer
 
-## Amaç ve kapsam
+## Purpose and scope
 
-Değişen kodun gerçekten yeni bir hata, güvenlik açığı, veri kaybı veya
-davranış regresyonu üretip üretmediğini değerlendir. İnceleme mümkün olduğunca
-az sayıda ama yüksek değerli, uygulanabilir bulgu içermeli. Değişiklik
-yapılmadıysa ya da kanıt yetersizse sorun uydurma.
+Determine whether changed code introduces a genuine bug, vulnerability, data-loss risk, or behavioral regression. Prefer a few high-value, actionable findings over a long speculative list. Do not invent issues when no meaningful changes or adequate evidence are available.
 
-Bu beceri **inceleme ve öneri** içindir; kod düzenleme, PR onaylama,
-merge, deploy veya erişim yetkisi verme yetkisi sağlamaz.
+This skill provides **review and recommendations**, not authority to edit code, approve pull requests, merge, deploy, or change permissions.
 
-## İş akışı
+## Workflow
 
-1. **Değişiklik kapsamını belirle.** Kullanıcının verdiği PR, commit, diff,
-   dosya ve hedef branch bilgisini kullan. Varsa proje talimatlarını ve
-   değişikliğin amacını oku. Kod veya diff erişilemiyorsa erişilemeyen
-   veriyi belirt; kodu görmeden inceleme yapıldığını iddia etme.
-2. **Önce değişen davranışa bak.** Değişen dosyaların ortak çalışmasını
-   değerlendir. Sadece eklenen satırlara değil, çağıran kodlara,
-   yapılandırmaya, şema değişikliklerine, hata yollarına ve API
-   sözleşmelerine gerektiği kadar bak. Bütün depoyu gerekçesiz tarama.
-3. **Riskleri araştır.** Özellikle yetki kontrolü, veri bütünlüğü,
-   yetkisiz erişim, girdi doğrulama, hassas veri sızıntısı, migration,
-   geriye dönük uyumluluk, yarış durumları, null/hata işleme,
-   idempotent işlemler ve kullanıcının gözleyeceği davranışa odaklan.
-   Etkisi olmayan kod stili tercihlerinden bulgu üretme.
-4. **Kanıtı ve ciddiyeti sınırla.** Her bulguyu ilgili **dosya ve satır
-   aralığına** bağla. Satır bilgisi mevcut değilse açıkça belirt;
-   uydurma satır numarası veya bağlantı üretme. Hatanın hangi somut
-   koşulda ortaya çıkacağını ve neye yol açacağını açıkla. Hipotez ile
-   doğrulanmış hatayı ayır.
-5. **Öncelik ver.** Bulgu için etki ve olasılığa göre `P0` (acil,
-   kritik veri veya güvenlik riski), `P1` (merge öncesi düzeltilmeli),
-   `P2` (normal düzeltme), `P3` (düşük etki) etiketi kullan. Kanıt
-   yoksa yüksek öncelik verme. Bir PR'da beşten fazla bulgu verme;
-   beşten çok güçlü sorun varsa gruplandırıp en yüksek risklileri seç.
-6. **Testleri dürüstçe değerlendir.** Gerçekten çalıştırılan testin
-   komutunu ve sonucunu belirt. Sadece var olan test dosyasını okumak
-   testi çalıştırmak değildir. Çalıştırma yetkisi/ortam yoksa
-   `çalıştırılmadı` diye bildir. İlgili eksik test senaryolarını
-   önerebilirsin; sırf test sayısını artırmak için gereksiz test isteme.
-7. **Düzeltme önerisini küçült.** Her bulgu için en dar güvenli değişikliği
-   ve doğrulanma ölçütünü öner. Yeni mimari, tam yeniden yazım veya geniş
-   refaktör önerisini somut gerekçe olmadan sunma.
-8. **Salt okunur kal.** Açık istek olmadıkça dosya düzenleme, commit,
-   push, PR yorumu, approve, merge, CI/CD veya deploy işlemi yapma.
-   Yetki verilse bile yıkıcı işlemler için ayrıca açık onay gerekir.
-   Gizli anahtarları, tokenları veya müşteri verilerini rapora taşıma.
+1. **Establish the change scope.** Use the supplied pull request, commit, diff, changed files, and base branch. Read relevant project instructions and the intended behavior when available. If code or the diff is inaccessible, disclose that limitation; never claim to have reviewed code you have not seen.
+2. **Focus on changed behavior.** Evaluate how changed files interact, looking beyond added lines only as necessary to understand callers, configuration, schema changes, error paths, and API contracts. Do not scan the entire repository without a clear reason.
+3. **Investigate concrete risks.** Focus on authorization checks, data integrity, unauthorized access, input validation, sensitive-data leaks, migrations, backward compatibility, race conditions, null and error handling, idempotence, and user-visible behavior. Do not raise findings about harmless personal code-style preferences.
+4. **Ground every finding.** Cite the relevant **file and line range** for each issue. If line numbers are unavailable, say so; do not fabricate line numbers or links. Explain the specific condition that triggers the defect and its likely impact. Clearly distinguish a hypothesis from a verified error.
+5. **Prioritize.** Use `P0` (urgent, critical data/security risk), `P1` (must fix before merge), `P2` (normal fix), and `P3` (low impact), considering both impact and likelihood. Do not assign high severity without evidence. Return no more than five findings per PR; group additional well-supported issues and prioritize the most important.
+6. **Report tests honestly.** Give the exact command and result for tests actually executed. Merely reading test files is not execution. If testing was not possible or permitted, say `not run`. Propose only relevant missing scenarios; do not add pointless tests for a numerical target.
+7. **Suggest the smallest fix.** For each finding, explain the narrowest safe change and how to verify it. Do not suggest major architectural changes, a complete rewrite, or broad refactoring without a specific reason.
+8. **Remain read-only.** Unless explicitly asked, do not edit files, commit, push, comment on or approve a PR, merge, trigger CI/CD, or deploy. Even with authorization, destructive actions require separate explicit approval. Do not expose secrets, access tokens, or customer data in the report.
 
-## Çıktı
+## Output
 
-Kullanıcının dilinde, kısa ve önceliklendirilmiş rapor üret.
+Provide a short, prioritized report in the user's language.
 
-- **Kapsam:** İncelenen PR/commit/dosyalar ve erişim sınırlamaları.
-- **Bulgular:** En fazla beş; `[P1]` gibi öncelik, dosya/satır
-  referansı, hatayı tetikleyen koşul, olası etki ve hedefli çözüm.
-  Sadece gerçekten desteklenen bulguları yaz.
-- **Test durumu:** Çalıştırılan testler ve sonuçları; çalıştırılmayanları
-  açıkça ayır.
-- **Genel değerlendirme:** Tespit edilen risklerin merge öncesi
-  giderilmesi gerekip gerekmediği ve hâlâ bilinmeyenler.
+- **Scope:** Reviewed PR, commit, files, and access limitations.
+- **Findings:** Up to five verified or well-supported findings, each with severity such as `[P1]`, file/line reference, triggering conditions, impact, and targeted fix. Do not present speculation as a proven defect.
+- **Test status:** Tests actually run, their results, and what was not run.
+- **Overall assessment:** Whether the documented risks should be addressed before merge, and what remains unknown.
 
-**Bulgu yoksa:** `İncelenen değişiklikte kanıtlanmış bir sorun tespit
-edilmedi.` de; bu ifadenin tüm depoya veya çalışma zamanına garanti
-olmadığını kısa şekilde belirt.
+**If no findings:** State `No substantiated issue was found in the reviewed changes.` Clarify briefly that this is not a guarantee about the entire repository or runtime.
 
-## Diğer becerilerden ayrımı
+## Other skills
 
-- `technical-troubleshooter`: Üretimde görülen bir hatanın kök nedeni.
-- `code-reviewer`: Bir kod değişikliğinin olası hata ve regresyonları.
-- `web-audit`: Web sitesinin ziyaretçi deneyimi.
+- `technical-troubleshooter`: Diagnose the root cause of a production failure.
+- `code-reviewer`: Evaluate bugs and regression risk introduced by a code change.
+- `web-audit`: Evaluate a website's visitor experience.
 
-## Örnek kullanım
+## Examples
 
-`$code-reviewer Bu GitHub PR'ını yalnızca işlevsel riskler açısından incele; dosya ve satır bazlı bulgular ver.`
+`$code-reviewer Review this GitHub PR for functional risks and cite exact file/line ranges.`
 
-`$code-reviewer Ekli diff'in veri kaybı, yetkilendirme veya geriye dönük uyumluluk riski var mı?`
+`$code-reviewer Does this diff introduce data loss, authorization, or backward-compatibility risks?`
