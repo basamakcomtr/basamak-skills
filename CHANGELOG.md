@@ -1,5 +1,14 @@
 # Changelog / Sürüm geçmişi
 
+## [1.1.0] - 2026-11-11
+
+- English canonical SKILL.md instructions and discoverable descriptions for all five skills.
+- Original Turkish instructions retained as SKILL.tr.md within each skill directory.
+- English/Turkish support-to-code-review workflow guides.
+- Updated documentation and bilingual package checks.
+
+End-to-end English model behavior has not yet been separately verified; packaging tests do not guarantee model performance.
+
 ## [1.0.0] - 2026-11-11
 
 First public package of five original Basamak Bilişim skills.
